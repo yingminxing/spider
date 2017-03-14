@@ -6,7 +6,7 @@
  * Time: 下午8:44
  */
 
-namespace Yingminxing\Spider\BaseSpider;
+namespace Yingminxing\Spider\Src\Lib;
 
 interface BaseRequest
 {
