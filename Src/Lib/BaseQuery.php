@@ -8,7 +8,7 @@
 
 namespace Yingminxing\Spider\Src\Lib;
 
-interface BaseRequest
+interface BaseQuery
 {
     /**
      * 设置链接超时时间
@@ -157,21 +157,6 @@ interface BaseRequest
      * @return  object
      */
     public function initCurl();
-
-    /**
-     * 不同类型请求封装
-     *
-     * $method 有多种类型:1.GET; 2.POST, 3.PUT, 4.DELETE, 5.HEAD, 6.OPTIONS, 7.PATCH
-     *
-     * $fields 有三种类型:1、数组；2、http query；3、json
-     * 1、array('name'=>'yangzetao') 2、http_build_query(array('name'=>'yangzetao')) 3、json_encode(array('name'=>'yangzetao'))
-     * 前两种是普通的post，可以用$_POST方式获取
-     * 第三种是post stream( json rpc，其实就是webservice )，虽然是post方式，但是只能用流方式 http://input 后者 $HTTP_RAW_POST_DATA 获取
-     *
-     * @param  string $url, $method, array() $fields
-     * @return  string
-     */
-    public function query($url, $method, $fields);
 
     /**
      * 获取response的body
