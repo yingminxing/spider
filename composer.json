@@ -17,5 +17,5 @@
             "Yingminxing\\Spider\\": "Src/"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
