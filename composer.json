@@ -2,6 +2,7 @@
     "name": "yingminxing/spider",
     "description": "This package provides a spider to Laravel",
     "license": "MIT",
+    "version": "1.0.0",
     "authors": [
         {
             "name": "yingminxing",
@@ -15,6 +16,5 @@
         "psr-4": {
             "Yingminxing\\Spider\\": "Src/"
         }
-    },
-    "minimum-stability": "dev"
+    }
 }
