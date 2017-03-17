@@ -26,7 +26,6 @@ class Query implements BaseQuery
     private $clientIpArr = [];
     private $proxies = [];
     private $url = null;
-    //private $domain = null;
     private $raw = null;
     private $content = null;
     private $info = [];
@@ -189,36 +188,43 @@ class Query implements BaseQuery
 
     public function get($url, $fields = [])
     {
+        $this->initCurl();
         return $this->httpQuery($url, 'GET', $fields);
     }
 
     public function post($url, $fields = [])
     {
+        $this->initCurl();
         return $this->httpQuery($url, 'POST', $fields);
     }
 
     public function put($url, $fields = [])
     {
+        $this->initCurl();
         return $this->httpQuery($url, 'PUT', $fields);
     }
 
     public function delete($url, $fields = [])
     {
+        $this->initCurl();
         return $this->httpQuery($url, 'DELETE', $fields);
     }
 
     public function head($url, $fields = [])
     {
+        $this->initCurl();
         return $this->httpQuery($url, 'HEAD', $fields);
     }
 
     public function options($url, $fields = [])
     {
+        $this->initCurl();
         return $this->httpQuery($url, 'OPTIONS', $fields);
     }
 
     public function patch($url, $fields = [])
     {
+        $this->initCurl();
         return $this->httpQuery($url, 'PATCH', $fields);
     }
 
@@ -282,7 +288,7 @@ class Query implements BaseQuery
      */
     public function getResponseCookies($domain)
     {
-        preg_match_all("/.*?Set\-Cookie: ([^\r\n]*)/i", self::$raw, $matches);
+        preg_match_all("/.*?Set\-Cookie: ([^\r\n]*)/i", $this->raw, $matches);
         $cookies = empty($matches[1]) ? [] : $matches[1];
 
         if ($cookies) {
@@ -423,9 +429,7 @@ class Query implements BaseQuery
 
         curl_setopt( $this->ch, CURLOPT_URL, $url );
 
-        $cookies = $this->cookies();
-        $domainCookies = $this->domainCookies($domain);
-        $cookies =  array_merge($cookies, $domainCookies);
+        $cookies = $this->getCookies($domain);
 
         if ($cookies) {
             $cookieArr = [];
@@ -464,7 +468,7 @@ class Query implements BaseQuery
         }
 
         // 启用代理
-        if ($this->proxies[$scheme]) {
+        if (isset($this->proxies[$scheme])) {
             curl_setopt( $this->ch, CURLOPT_PROXY, $this->proxies[$scheme]);
         }
 
