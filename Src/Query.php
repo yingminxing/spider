@@ -9,7 +9,7 @@
 namespace Yingminxing\Spider\Src;
 
 use Yingminxing\Spider\Src\Lib\BaseQuery;
-use Yingminxing\Spider\Src\Enum\ConstSetting;
+use Yingminxing\Spider\Src\Enum\QuerySetting;
 
 class Query implements BaseQuery
 {
@@ -23,6 +23,7 @@ class Query implements BaseQuery
     private $hosts = [];
     private $headers = [];
     private $userAgent = '';
+    private $userAgentArr = [];
     private $clientIpArr = [];
     private $proxies = [];
     private $url = null;
@@ -35,9 +36,9 @@ class Query implements BaseQuery
 
     public function __construct()
     {
-        $this->timeout = ConstSetting::TIMEOUT;
-        $this->conTimeout = ConstSetting::CONTIMEOUT;
-        $this->userAgent = ConstSetting::USERAGENT;
+        $this->timeout = QuerySetting::TIMEOUT;
+        $this->conTimeout = QuerySetting::CONTIMEOUT;
+        $this->userAgent = QuerySetting::AGENT_PC;
     }
 
     public function setConTimeout($second)
@@ -53,6 +54,26 @@ class Query implements BaseQuery
     public function setProxies($proxies)
     {
         $this->proxies = $proxies;
+    }
+
+    public function setInputEncoding($inputEncoding)
+    {
+        $this->inputEncoding = $inputEncoding;
+    }
+
+    public function getInputEncoding()
+    {
+        return $this->inputEncoding;
+    }
+
+    public function setOutputEncoding($outputEncoding)
+    {
+        $this->outputEncoding = $outputEncoding;
+    }
+
+    public function getOutputEncoding()
+    {
+        return $this->outputEncoding;
     }
 
     public function setHeaders($key, $value)
@@ -123,9 +144,14 @@ class Query implements BaseQuery
         }
     }
 
-    public function setUserAgents($userAgent)
+    public function setUserAgent($userAgent)
     {
         $this->userAgent = $userAgent;
+    }
+
+    public function setUserAgentArr($userAgentArr)
+    {
+        $this->userAgentArr = $userAgentArr;
     }
 
     public function setHeaderUserAgent($userAgent)
@@ -152,6 +178,16 @@ class Query implements BaseQuery
     public function setHosts($hosts)
     {
         $this->hosts = $hosts;
+    }
+
+    public function getQueryInfo()
+    {
+        return $this->info;
+    }
+
+    public function getStatusCode()
+    {
+        return $this->statusCode;
     }
 
     public function getEncoding($string)
@@ -476,5 +512,4 @@ class Query implements BaseQuery
 
         return ['code' => 1, 'domain' => $domain];
     }
-
 }

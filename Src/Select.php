@@ -10,9 +10,9 @@ namespace Yingminxing\Spider\Src;
 
 use DOMXPath;
 use DOMDocument;
+use phpQuery;
 
 use Yingminxing\Spider\Src\Lib\BaseSelect;
-
 
 class Select implements BaseSelect
 {
@@ -24,21 +24,20 @@ class Select implements BaseSelect
     private $selectType = '';
     private $errorInfo = null;
 
-    public function __construct($html, $rule, $selectType)
+    public function __construct($html, $selectType = 'xpath')
     {
         $this->html = $html;
-        $this->rule = $rule;
         $this->selectType = $selectType ? $selectType : 'xpath';
     }
 
-    public function match($html, $rule, $matchType)
+    public function match($html, $rule, $matchType = '')
     {
         if (empty($html)) {
             $this->error = 'there is noting to mathc';
             return '';
         }
 
-        $matchType = strtolower($matchType);
+        $matchType = $matchType ? strtolower($matchType) : strtolower($this->selectType);
 
         switch ($matchType)
         {
@@ -176,8 +175,15 @@ class Select implements BaseSelect
     {
         if ($this->domAuth != md5($html)) {
             $this->domAuth = md5($html);
+            phpQuery::loadDocumentHTML($html);
         }
 
+        if ($removeFlag) {
+            $result = pq($rule)->remove();
+        } else {
+            $result = pq($rule)->html();
+        }
 
+        return $result;
     }
 }

@@ -87,12 +87,52 @@ interface BaseQuery
     public function delCookies($domain);
 
     /**
-     * 设置多种userAgent
+     * 设置inputEncoding
      *
-     * @param string $userAgents
+     * @param string
      * @return void
      */
-    public function setUserAgents($userAgents);
+    public function setInputEncoding($inputEncoding);
+
+    /**
+     * 获取inputEncoding
+     *
+     * @param string
+     * @return void
+     */
+    public function getInputEncoding();
+
+    /**
+     * 设置outputEncoding
+     *
+     * @param string
+     * @return void
+     */
+    public function setOutputEncoding($outputEncoding);
+
+    /**
+     * 获取outputEncoding
+     *
+     * @param string
+     * @return void
+     */
+    public function getOutputEncoding();
+
+    /**
+     * 设置单个userAgent
+     *
+     * @param string $userAgent
+     * @return void
+     */
+    public function setUserAgent($userAgent);
+
+    /**
+     * 设置userAgent数组
+     *
+     * @param string $userAgent
+     * @return void
+     */
+    public function setUserAgentArr($userAgentArr);
 
     /**
      * 给header随机设置userAgent
@@ -133,6 +173,20 @@ interface BaseQuery
      * @return void
      */
     public function setHosts($hosts);
+
+    /**
+     * 获取状态code
+     *
+     * @return string
+     */
+    public function getStatusCode();
+
+    /**
+     * 获取info信息
+     *
+     * @return array
+     */
+    public function getQueryInfo();
 
     /**
      * 获取文件编码
